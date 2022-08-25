@@ -4,7 +4,6 @@ import "./listing.css";
 
 const ListingDisplay = (props) => {
   const renderData = ({ listData }) => {
-    console.log(listData);
     if (listData) {
       if (listData.length > 0) {
         return listData.map((item) => {
@@ -20,21 +19,21 @@ const ListingDisplay = (props) => {
                 </div>
                 <div className="col-md-7">
                   <div className="hotel_name">
-                    <Link to="/">{item.restaurant_name}</Link>
+                    <Link to={`/details?restId=${item.restaurant_id}`}>{item.restaurant_name}</Link>
                   </div>
 
                   <div className="city_name">{item.address}</div>
                   <div className="city_name">{item.rating_text}</div>
                   <div className="city_name">Rs. {item.cost}</div>
-                  <div className="labelDiv">
-                    <span className="label label-primary">
-                      {item.mealTypes[0].mealtype_name}
-                    </span>{" "}
-                    &nbsp;
-                    <span className="label label-success">
-                      {item.mealTypes[1].mealtype_name}
-                    </span>
-                  </div>
+                    <div className="labelDiv">
+                    {item.mealTypes.map((meal)=>{return(
+                      <span className="label label-primary">{meal.mealtype_name}&nbsp;</span>
+                    )})}
+               
+                  
+                 
+                  </div> 
+             
                   <div className="labelDiv">
                     <span className="label label-warning">
                       {item.cuisines[0].cuisine_name}
@@ -47,14 +46,14 @@ const ListingDisplay = (props) => {
                 </div>
               </div>
             </div>
-          );
-        });
+          )
+        })
       } else {
         return (
           <div>
             <h2>There is no data</h2>
           </div>
-        );
+        )
       }
     } else {
       return (
@@ -62,7 +61,7 @@ const ListingDisplay = (props) => {
           <h2>Loading ...</h2>
           <img src="/images/loader.gif"></img>
         </div>
-      );
+      )
     }
   };
   return (
